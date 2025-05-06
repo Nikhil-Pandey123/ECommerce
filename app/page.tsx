@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <div className="bg-red-500 text-3xl font-bold">
-      Hi, My name is NIkhil Pandey
-    </div>
-  );
+  return 'Hi, this is default home page of Next.js 13.4.4 with TypeScript and Tailwind CSS!';
 }

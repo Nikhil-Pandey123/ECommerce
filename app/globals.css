@@ -1,5 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
 
+  --color-twitter-blue: #1da1f2;
+  --color-twitter-blue-dark: #0f84c5;
+  --color-twitter-blue-light: #4dabf7;
+}
+/* @plugin "shadcn-ui" */
 :root {
   --background: #ffffff;
   --foreground: #171717;
