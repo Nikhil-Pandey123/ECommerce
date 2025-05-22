@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="w-[30%]">
         <Link href={'/public/vercel.svg'} className="flex items-center gap-1">
           <Image
-            src="/vercel.svg"
+            src="/Airflex photo/logo.jpeg"
             alt="logo"
             width={40}
             height={40}
@@ -17,7 +17,7 @@ const Navbar = () => {
           />
 
           <p className="h2-bold text-white max-sm:hidden">
-            Air<span className="text-primary-500">Flex</span>
+            Air<span className="text-green-500">Flex</span>
           </p>
         </Link>
       </div>
@@ -34,7 +34,7 @@ const Navbar = () => {
         </Link>
 
         <Link href={'signout'}>
-          <Button className="bg-primary-500 cursor-pointer p-4 text-black">
+          <Button className="cursor-pointer bg-green-500 p-4 text-black">
             Sign Up
           </Button>
         </Link>

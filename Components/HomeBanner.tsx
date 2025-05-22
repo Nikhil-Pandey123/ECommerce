@@ -34,7 +34,7 @@ const HomeBanner = () => {
 
           {/* Header Text */}
           <div className="mt-4 w-full px-4 text-left">
-            <h3 className="text-xl font-semibold">Pro Gear Pack</h3>
+            <h3 className="text-xl font-semibold text-white">Pro Gear Pack</h3>
             <span className="text-sm text-gray-500">1 year / 1 User</span>
           </div>
 
@@ -59,7 +59,7 @@ const HomeBanner = () => {
 
       {/* Right side ko  Content */}
       <div className="relative flex flex-col items-center justify-center gap-6">
-        <div className="space-y-1 rounded-2xl bg-white px-6 py-4 text-center text-black shadow-md">
+        <div className="mt-2 space-y-1 rounded-2xl bg-white px-6 py-4 text-center text-black shadow-md">
           <h2 className="text-3xl font-extrabold text-red-500">55% OFF</h2>
           <p className="text-sm font-medium">On All Products</p>
           <p className="text-xs text-gray-700">Limited Time Offer</p>
@@ -72,9 +72,9 @@ const HomeBanner = () => {
           <Image
             src="/Airflex photo/man.png"
             alt="Sports Banner"
-            width={800}
-            height={800}
-            className="object-cover"
+            width={900}
+            height={900}
+            className=""
           />
         </div>
       </div>
