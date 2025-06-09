@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { ShoppingCart, Search, Settings } from 'lucide-react';
 import { Sheet, SheetTrigger, SheetContent } from '@/Components/ui/sheet';
 import { Dialog, DialogTrigger, DialogContent } from '@/Components/ui/dialog';
+import { useCartStore } from '@/lib/store/cartStore';
 
 export default function Navbar() {
+  const cartCount = useCartStore(state => state.getCartCount());
   return (
-    <nav className="bg-primary w-full bg-black px-4 py-3 text-white shadow-md">
+    <nav className="bg-primary w-full px-4 py-3 text-white shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-white">
@@ -44,10 +46,12 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {/* Cart */}
           <div className="relative">
-            <ShoppingCart className="h-6 w-6 cursor-pointer" />
-            <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
-              0 {/* Replace with actual cart count */}
-            </span>
+            <Link href="/cart">
+              <ShoppingCart className="h-6 w-6 cursor-pointer" />
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
+                {cartCount}
+              </span>
+            </Link>
           </div>
 
           {/* Search (Dialog) */}

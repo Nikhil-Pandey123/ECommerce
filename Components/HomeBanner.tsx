@@ -40,14 +40,16 @@ const HomeBanner = () => {
 
           {/* Inner Content */}
           <div className="relative z-10 w-[90%] rounded-3xl bg-transparent p-5 shadow-inner">
-            <h2 className="mb-1 text-xl font-bold">Athlete Max</h2>
+            <h2 className="mb-1 text-xl font-bold text-white">Athlete Max</h2>
             <p className="mb-1 text-sm text-gray-600">
               Get elite-level gear recommendations
             </p>
             <p className="mb-4 text-sm text-gray-600">
               Stay ahead with trending sports deals
             </p>
-            <p className="mb-10 text-lg font-semibold">Rs. 1999.00</p>
+            <p className="mb-10 text-lg font-semibold text-white">
+              Rs. 1999.00
+            </p>
 
             {/* Buy Button */}
             <button className="absolute right-4 bottom-4 rounded-xl bg-black px-5 py-2 text-white transition hover:bg-gray-800">
