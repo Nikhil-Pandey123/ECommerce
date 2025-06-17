@@ -9,18 +9,17 @@ import { useCartStore } from '@/lib/store/cartStore';
 export default function Navbar() {
   const cartCount = useCartStore(state => state.getCartCount());
   return (
-    <nav className="bg-primary w-full px-4 py-3 text-white shadow-md">
+    <nav className="w-full px-4 py-3 text-white shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-white">
           <Image
-            src="/Airflex photo/airflex-app-icon.png"
+            src="/Airflex photo/airflex-logo-1.png"
             alt="Logo"
-            width={40}
-            height={40}
+            width={100}
+            height={100}
             className="mr-2 inline-block"
           />
-          Airflex
         </Link>
 
         {/* Navigation Links */}

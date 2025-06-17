@@ -1,12 +1,18 @@
 'use client';
-import { Badge } from "@/Components/ui/badge";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import ProductCard from "@/Components/ProductListing";
+import { Badge } from '@/Components/ui/badge';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/Components/ui/select';
+import ProductCard from '@/Components/ProductListing';
 import { useState } from 'react';
-import { dummyProducts } from "@/lib/data/products";
-import Link from "next/link"; 
+import { dummyProducts } from '@/lib/data/products';
+import Link from 'next/link';
 export default function ProductsPage() {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('default');
@@ -14,13 +20,13 @@ export default function ProductsPage() {
   const [bestSellerOnly, setBestSellerOnly] = useState(false);
 
   let filtered = dummyProducts
-    .filter((product) =>
+    .filter(product =>
       product.title.toLowerCase().includes(search.toLowerCase())
     )
-    .filter((product) =>
+    .filter(product =>
       category === 'all' ? true : product.category === category
     )
-    .filter((product) => (bestSellerOnly ? product.bestSeller : true));
+    .filter(product => (bestSellerOnly ? product.bestSeller : true));
 
   if (sort === 'priceLowHigh') {
     filtered.sort((a, b) => a.price - b.price);
@@ -33,16 +39,16 @@ export default function ProductsPage() {
   }
 
   return (
-    <section className="p-6 space-y-6 text-white ">
-      <div className="flex flex-col md:flex-row md:items-center gap-4">
+    <section className="bg-primary space-y-6 p-6 text-white">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center">
         <Input
           placeholder="Search products..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={e => setSearch(e.target.value)}
           className="w-full md:w-64"
         />
 
-        <Select value={sort} onValueChange={setSort} >
+        <Select value={sort} onValueChange={setSort}>
           <SelectTrigger className="w-52">
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
@@ -69,22 +75,24 @@ export default function ProductsPage() {
         </Select>
 
         <Button
-          variant={bestSellerOnly ? "destructive" : "secondary"}
+          variant={bestSellerOnly ? 'destructive' : 'secondary'}
           onClick={() => setBestSellerOnly(!bestSellerOnly)}
         >
-          {bestSellerOnly ? "Showing Best Sellers" : "Filter Best Sellers"}
+          {bestSellerOnly ? 'Showing Best Sellers' : 'Filter Best Sellers'}
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
+      <div className="grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 md:grid-cols-3">
         {filtered.length > 0 ? (
-          filtered.map((product) => (
+          filtered.map(product => (
             <Link key={product.id} href={`/products/${product.id}`}>
-  <ProductCard {...product} />
-</Link>
+              <ProductCard {...product} />
+            </Link>
           ))
         ) : (
-          <Badge variant="secondary" className="col-span-full">No products found</Badge>
+          <Badge variant="secondary" className="col-span-full">
+            No products found
+          </Badge>
         )}
       </div>
     </section>
