@@ -13,10 +13,9 @@ export default function HomePage() {
         <HomeBanner />
       </section>
 
-      <section className="bg-primary relative z-10 py-16">
-        <div className="container mx-auto px-4">
-          <TopSellingSection />
-        </div>
+      {/* Remove the container wrapper here - TopSellingSection handles its own width */}
+      <section className="relative z-10">
+        <TopSellingSection />
       </section>
     </div>
   );

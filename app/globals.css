@@ -116,6 +116,11 @@
 }
 
 :root {
+  --airflex-bg: #f8f9fa;
+  --airflex-primary: #06b6d4;
+  --airflex-dark: #374151;
+  --airflex-light: #ffffff;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);

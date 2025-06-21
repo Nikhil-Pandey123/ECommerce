@@ -8,9 +8,13 @@ export default function MainLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar /> {/* This appears on ALL pages */}
-        {children}
+      <body className="min-h-screen">
+        <div className="w-full">
+          <Navbar /> {/* This appears on ALL pages */}
+        </div>
+
+        <main className="w-full">{children}</main>
+
         <Toaster richColors position="top-right" />
       </body>
     </html>
