@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 z-50 w-full px-4 py-3 text-white shadow-md transition-all duration-300 ${getNavbarBackground()}`}
+      className={`sticky top-0 z-50 w-full px-4 py-3 font-extrabold text-white shadow-md transition-all duration-300 ${getNavbarBackground()}`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}

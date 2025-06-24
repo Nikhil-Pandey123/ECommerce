@@ -20,7 +20,7 @@ const ProductCard = ({
   bestSeller,
 }: ProductProps) => {
   return (
-    <div className="group relative flex h-[360px] w-[300px] cursor-pointer flex-col items-center justify-start overflow-hidden rounded-[30px] border border-white/10 bg-[#2f2f2f]/60 p-6 text-white shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl">
+    <div className="group relative flex h-[360px] w-[300px] cursor-pointer flex-col items-center justify-start overflow-hidden rounded-[30px] border border-white/10 p-6 text-white shadow-lg backdrop-blur-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl">
       {/* 🔥 Best Seller Badge */}
       {bestSeller && (
         <div className="absolute top-4 left-1 z-20 animate-pulse rounded-full bg-gradient-to-r from-yellow-400 to-red-500 px-3 py-1 text-xs font-bold text-black shadow-md">
@@ -29,7 +29,7 @@ const ProductCard = ({
       )}
 
       {/* Product Image */}
-      <div className="relative -mt-12 mb-4 flex h-50 w-50 flex-col gap-1">
+      <div className="relative -mt-12 mb-4 flex h-full w-full flex-col gap-1">
         <Image
           src={image}
           alt={title}
@@ -40,13 +40,15 @@ const ProductCard = ({
       </div>
 
       {/* Product Info */}
-      <h2 className="text-center text-xl font-semibold">{title}</h2>
+      <h2 className="mb-6 text-center text-xl font-semibold text-black">
+        {title}
+      </h2>
 
       {/* Price + Cart Icon */}
       <div className="mt-auto flex w-full items-center justify-between px-2">
-        <span className="text-lg font-bold">Rs. {price}/-</span>
+        <span className="text-lg font-bold text-black">Rs. {price}/-</span>
         <div className="rounded-full border border-white/20 p-2">
-          <ShoppingCart className="h-5 w-5 cursor-pointer text-white" />
+          <ShoppingCart className="h-5 w-5 cursor-pointer text-black" />
         </div>
       </div>
     </div>
