@@ -15,6 +15,7 @@ import {
   Shield,
   RotateCcw,
   Award,
+  MoreHorizontal,
 } from 'lucide-react';
 
 interface Props {
@@ -192,6 +193,18 @@ export default function ProductDetailPage({ params }: Props) {
                     <button className="rounded-full bg-gray-100 p-3 text-gray-500 transition-all hover:bg-gray-200">
                       <Share2 className="h-5 w-5" />
                     </button>
+
+                    <Link
+                      href={'/customization'}
+                      className="rounded-full bg-gray-100 p-3 text-gray-500 transition-all hover:bg-gray-200"
+                    >
+                      <Image
+                        src="/Airflex photo/virtual-reality.png"
+                        alt="rotate"
+                        width={30}
+                        height={30}
+                      />
+                    </Link>
                   </div>
                 </div>
 
