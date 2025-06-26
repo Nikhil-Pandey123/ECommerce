@@ -3,7 +3,7 @@
 import BackgroundVideo from '@/Components/BackgroundVideo';
 import HomeBanner from '@/Components/HomeBanner';
 import TopSellingSection from '@/Components/TopSellingSection';
-
+import FeaturesSection from '@/Components/FeaturesSection';
 export default function HomePage() {
   return (
     <div className="relative">
@@ -13,9 +13,12 @@ export default function HomePage() {
         <HomeBanner />
       </section>
 
-      {/* Remove the container wrapper here - TopSellingSection handles its own width */}
       <section className="relative z-10">
         <TopSellingSection />
+      </section>
+
+      <section className="realtive z-10">
+        <FeaturesSection />
       </section>
     </div>
   );

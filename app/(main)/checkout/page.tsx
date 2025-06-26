@@ -35,8 +35,8 @@ export default function CheckoutPage() {
   };
 
   return (
-    <section className="bg-primary mx-auto min-h-screen max-w-5xl p-6 text-white">
-      <h1 className="mb-6 text-3xl font-bold">Checkout</h1>
+    <section className="mx-auto min-h-screen max-w-5xl bg-white p-6 text-black">
+      <h1 className="mb-6 text-center text-3xl font-bold">Checkout</h1>
 
       {cart.length === 0 ? (
         <div className="py-20 text-center">

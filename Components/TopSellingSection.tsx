@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductListing from './ProductListing';
 import Link from 'next/link';
+import AirflexBackground from './AirflexBackground';
 const TopSellingSection = () => {
   return (
     <section className="relative mt-15 min-h-screen w-full overflow-hidden py-16">
@@ -72,7 +73,7 @@ const TopSellingSection = () => {
 
         {/* Enhanced product grid with better spacing */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/1.png"
               title="Product 1"
@@ -81,7 +82,7 @@ const TopSellingSection = () => {
               bestSeller={true}
             />
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/2.png"
               title="Product 2"
@@ -90,7 +91,7 @@ const TopSellingSection = () => {
               bestSeller={true}
             />
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/3.png"
               title="Product 3"
@@ -99,7 +100,7 @@ const TopSellingSection = () => {
               bestSeller={false}
             />
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/4.png"
               title="Product 4"
@@ -108,7 +109,7 @@ const TopSellingSection = () => {
               bestSeller={false}
             />
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/5.png"
               title="Product 5"
@@ -117,7 +118,7 @@ const TopSellingSection = () => {
               bestSeller={false}
             />
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+          <div className="transform transition-all duration-300">
             <ProductListing
               image="/Airflex photo/6.png"
               title="Product 6"
