@@ -122,7 +122,7 @@ export default function Navbar() {
                 </li>
                 <li>
                   <Link
-                    href="/register"
+                    href="/signup"
                     className="transition-colors hover:text-gray-300"
                   >
                     Register
