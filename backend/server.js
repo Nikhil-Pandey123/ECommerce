@@ -11,6 +11,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('✅ Server is running');
 });
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/users', authRoutes);
 
 // Connect to MongoDB
 mongoose
