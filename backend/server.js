@@ -1,17 +1,26 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import authRoutes from './routes/authRoutes.js';
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
 
-// Middleware (optional for this test)
+// Use CORS middleware
+app.use(cors());
+
+// Middleware
 app.use(express.json());
 
 // Root route
 app.get('/', (req, res) => {
   res.send('✅ Server is running');
 });
-const authRoutes = require('./routes/authRoutes');
+
+// Routes
 app.use('/api/users', authRoutes);
 
 // Connect to MongoDB
