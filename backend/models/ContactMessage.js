@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import { type } from 'os';
-
 const contactMessageSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -20,4 +18,5 @@ const contactMessageSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('ContactMessage', contactMessageSchema);
+const contactMessage = mongoose.model('ContactMessage', contactMessageSchema);
+export default contactMessage;
