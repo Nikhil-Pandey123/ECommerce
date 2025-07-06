@@ -3,9 +3,10 @@ import { dummyProducts } from '@/lib/data/products';
 import Image from 'next/image';
 import { Button } from '@/Components/ui/button';
 import { useCartStore } from '@/lib/store/cartStore';
+import { useWishlistStore } from '@/lib/store/wishlistStore'; // Import wishlist store
 import Link from 'next/link';
 import AirflexBackground from '@/Components/AirflexBackground';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Add useEffect
 import {
   Heart,
   Share2,
@@ -24,12 +25,17 @@ interface Props {
 
 export default function ProductDetailPage({ params }: Props) {
   const { addToCart } = useCartStore();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlistStore(); // Get wishlist functions
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const product = dummyProducts.find(p => p.id === params.id);
+
+  // Check if product is in wishlist
+  const isWishlisted = product
+    ? wishlist.some(item => item.id === product.id)
+    : false;
 
   if (!product) {
     return (
@@ -69,6 +75,20 @@ export default function ProductDetailPage({ params }: Props) {
       selectedSize,
       quantity,
     });
+  };
+
+  // Handle wishlist toggle
+  const handleWishlistToggle = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+      });
+    }
   };
 
   return (
@@ -179,7 +199,7 @@ export default function ProductDetailPage({ params }: Props) {
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => setIsWishlisted(!isWishlisted)}
+                      onClick={handleWishlistToggle}
                       className={`rounded-full p-3 transition-all ${
                         isWishlisted
                           ? 'bg-red-100 text-red-500 hover:bg-red-200'
