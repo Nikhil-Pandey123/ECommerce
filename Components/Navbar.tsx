@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -6,8 +7,32 @@ import { ShoppingCart, Search, Settings } from 'lucide-react';
 import { Sheet, SheetTrigger, SheetContent } from '@/Components/ui/sheet';
 import { Dialog, DialogTrigger, DialogContent } from '@/Components/ui/dialog';
 import { useCartStore } from '@/lib/store/cartStore';
-
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { Button } from './ui/button';
 export default function Navbar() {
+  // User authentication state
+  const Router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        localStorage.removeItem('user');
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    toast.success('Logged out successfully');
+    Router.push('/login');
+  };
+
+  // Cart related
   const cartCount = useCartStore(state => state.getCartCount());
   const pathname = usePathname();
 
@@ -110,40 +135,43 @@ export default function Navbar() {
               <Settings className="h-6 w-6 cursor-pointer transition-colors hover:text-gray-300" />
             </SheetTrigger>
             <SheetContent side="right" className="w-64 bg-black p-6 text-white">
-              <h3 className="mb-4 text-lg font-semibold">Account</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link
-                    href="/login"
-                    className="transition-colors hover:text-gray-300"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/signup"
-                    className="transition-colors hover:text-gray-300"
-                  >
-                    Register
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/wishlist"
-                    className="transition-colors hover:text-gray-300"
-                  >
-                    Wishlist
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/checkout"
-                    className="transition-colors hover:text-gray-300"
-                  >
-                    Checkout
-                  </Link>
-                </li>
+              <h3 className="mb-4 text-lg font-semibold">
+                {user ? `Hi, ${user.firstName}` : `Account`}
+              </h3>
+              <ul className="space-y-4">
+                {!user ? (
+                  <>
+                    <li>
+                      <Link href="/login">Login</Link>
+                    </li>
+
+                    <li>
+                      <Link href="/signup">Sign Up</Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link href="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                      <Link href="/wishlist">Wishlist</Link>
+                    </li>
+                    <li>
+                      <Link href="/checkout">Checkout</Link>
+                    </li>
+
+                    {/* Logout Button */}
+                    <li>
+                      <Button
+                        onClick={handleLogout}
+                        className="bg-white text-black hover:underline"
+                      >
+                        Logout
+                      </Button>
+                    </li>
+                  </>
+                )}
               </ul>
             </SheetContent>
           </Sheet>
