@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
-
+import contactRoutes from './routes/contactRoutes.js';
 // Load environment variables
 dotenv.config();
 
@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/users', authRoutes);
 
+app.use('/api/contact', contactRoutes);
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
@@ -31,9 +33,9 @@ mongoose
 
     // Start server only if DB connects
     app.listen(5000, () => {
-      console.log('🚀 Server is running on http://localhost:5000');
+      console.log('Server is running on http://localhost:5000');
     });
   })
   .catch(err => {
-    console.error('❌ Failed to connect to MongoDB:', err.message);
+    console.error('Failed to connect to MongoDB:', err.message);
   });

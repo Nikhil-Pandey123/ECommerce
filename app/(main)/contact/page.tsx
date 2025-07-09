@@ -20,6 +20,8 @@ export default function ContactPage() {
     setName('');
     setEmail('');
     setMessage('');
+
+    // backend logic
   };
 
   return (
@@ -233,6 +235,7 @@ export default function ContactPage() {
 
                   <Button
                     type="submit"
+                    onClick={handleSubmit}
                     className="w-full transform rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-semibold text-white shadow-lg shadow-cyan-500/30 transition-all duration-300 hover:scale-105 hover:from-cyan-600 hover:to-blue-700 hover:shadow-cyan-500/50"
                   >
                     Send Message
