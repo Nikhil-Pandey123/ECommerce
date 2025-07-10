@@ -60,7 +60,7 @@ const Login = () => {
       const data = await res.json();
 
       if (res.ok) {
-        // 🎉 Login success
+        //  Login success
         toast.success('Login successful! Redirecting...', {
           id: 'login',
           duration: 3000,
@@ -69,15 +69,15 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        // 🧹 Reset form
+        //  Reset form
         setFormData({ email: '', password: '' });
 
-        // ⏳ Delay before redirecting to dashboard
+        //  Delay before redirecting to dashboard
         setTimeout(() => {
           router.push('/dashboard');
         }, 2000); // 2 seconds loading feel
       } else {
-        // ❌ Login failed
+        //  Login failed
         toast.error(data.message || 'Login failed. Please try again.', {
           id: 'login',
         });

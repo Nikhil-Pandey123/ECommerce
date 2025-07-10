@@ -14,7 +14,7 @@ export default function ContactPage() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     toast.success('Message sent successfully!');
     setName('');
@@ -22,6 +22,37 @@ export default function ContactPage() {
     setMessage('');
 
     // backend logic
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success('Message sent successfully!');
+
+        // Clearing the form
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        toast.error(
+          data.message || 'Failed to send message. Please try again.'
+        );
+      }
+    } catch (error) {
+      toast.error(
+        'An error occurred while sending your message. Please try again later.'
+      );
+    }
   };
 
   return (
