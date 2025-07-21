@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   CardHeader,
@@ -10,7 +10,7 @@ import {
 import { Label } from '@/Components/ui/label';
 import { Input } from '@/Components/ui/input';
 import { Button } from '@/Components/ui/button';
-import { toast } from 'sonner'; // Add this import for toast
+import { toast } from 'sonner';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,15 @@ const Login = () => {
     password: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      router.replace('/');
+    }
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,7 +68,6 @@ const Login = () => {
       const data = await res.json();
 
       if (res.ok) {
-        //  Login success
         toast.success('Login successful! Redirecting...', {
           id: 'login',
           duration: 3000,
@@ -69,15 +76,12 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        //  Reset form
         setFormData({ email: '', password: '' });
 
-        //  Delay before redirecting to dashboard
         setTimeout(() => {
-          router.push('/dashboard');
-        }, 2000); // 2 seconds loading feel
+          router.replace('/dashboard');
+        }, 1000);
       } else {
-        //  Login failed
         toast.error(data.message || 'Login failed. Please try again.', {
           id: 'login',
         });
@@ -121,87 +125,145 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center px-4">
-      <Card className="w-full max-w-sm rounded-[10px] shadow-md">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Login</CardTitle>
-          <CardDescription>Login to your Airflex account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-            <div className="flex flex-col gap-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="hello@example.com"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
+    <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-4 py-12">
+      <div className="w-full max-w-md">
+        {/* Header section */}
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">
+            Welcome back
+          </h1>
+          <p className="text-gray-600">Please sign in to your account</p>
+        </div>
 
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Your password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
+        <Card className="rounded-2xl border border-white/20 bg-white/80 shadow-xl backdrop-blur-sm">
+          <CardHeader className="pb-2 text-center">
+            <CardTitle className="text-2xl font-semibold text-gray-800">
+              Sign In
+            </CardTitle>
+            <CardDescription className="text-gray-500">
+              Access your Airflex dashboard
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="pt-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="email"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Email Address
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    disabled={isLoading}
+                    className="h-11 rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="password"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </Label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                    disabled={isLoading}
+                    className="h-11 rounded-lg border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <Button
+                type="submit"
                 disabled={isLoading}
-              />
+                className="h-11 w-full rounded-lg bg-blue-600 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
+              >
+                {isLoading ? 'Signing in...' : 'Sign In'}
+              </Button>
+            </form>
+
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="bg-white px-4 text-gray-500">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                <Button
+                  onClick={() => handleProviderLogin('google')}
+                  className="h-11 w-full rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors duration-200 hover:bg-gray-50"
+                  disabled={isLoading}
+                  type="button"
+                >
+                  <Image
+                    src="icons/google.svg"
+                    alt="Google"
+                    width={20}
+                    height={20}
+                    className="mr-3"
+                  />
+                  Continue with Google
+                </Button>
+
+                <Button
+                  onClick={() => handleProviderLogin('facebook')}
+                  className="h-11 w-full rounded-lg bg-blue-600 text-white transition-colors duration-200 hover:bg-blue-700"
+                  disabled={isLoading}
+                  type="button"
+                >
+                  <Image
+                    src="icons/avatar.svg"
+                    alt="Facebook"
+                    width={20}
+                    height={20}
+                    className="mr-3"
+                  />
+                  Continue with Facebook
+                </Button>
+              </div>
             </div>
 
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Submit'}
-            </Button>
-          </form>
+            <div className="mt-8 text-center">
+              <p className="text-sm text-gray-600">
+                Don't have an account?{' '}
+                <a
+                  href="/signup"
+                  className="font-medium text-blue-600 transition-colors hover:text-blue-500"
+                >
+                  Create one here
+                </a>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-          <div className="mt-4 flex flex-col gap-y-2">
-            <Button
-              onClick={() => handleProviderLogin('google')}
-              className="cursor-pointer bg-white text-black hover:bg-gray-50"
-              disabled={isLoading}
-              type="button"
-            >
-              <Image
-                src="icons/google.svg"
-                alt="Google"
-                width={20}
-                height={20}
-                className="mr-2 rounded-full"
-              />
-              Login with Google
-            </Button>
-
-            <Button
-              onClick={() => handleProviderLogin('facebook')}
-              className="cursor-pointer bg-blue-600 text-white hover:bg-blue-700"
-              disabled={isLoading}
-              type="button"
-            >
-              <Image
-                src="icons/avatar.svg"
-                alt="Facebook"
-                width={20}
-                height={20}
-                className="mr-2 rounded-full"
-              />
-              Login with Facebook
-            </Button>
-          </div>
-
-          <div className="mt-4 text-center text-sm text-gray-600">
-            Don't have an account?{' '}
-            <a href="/register" className="text-blue-600 hover:underline">
-              Sign up
-            </a>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Footer */}
+        <div className="mt-8 text-center text-xs text-gray-500">
+          <p>2024 Airflex. All rights reserved.</p>
+        </div>
+      </div>
     </div>
   );
 };

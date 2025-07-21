@@ -14,7 +14,6 @@ export default function CartPage() {
   const [loading, setLoading] = useState(false);
   const { cart, removeFromCart, clearCart } = useCartStore();
 
-  // Authentication Check
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
@@ -39,10 +38,8 @@ export default function CartPage() {
     return (
       <AirflexBackground>
         <div className="flex min-h-screen items-center justify-center">
-          <div className="rounded-lg bg-white/10 p-8 backdrop-blur-sm">
-            <div className="text-xl font-medium text-white">
-              Loading your cart...
-            </div>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-8 backdrop-blur-lg">
+            <div className="text-lg text-white/90">Loading your cart...</div>
           </div>
         </div>
       </AirflexBackground>
@@ -51,124 +48,133 @@ export default function CartPage() {
 
   return (
     <AirflexBackground>
-      <div className="min-h-screen px-4 py-8">
-        <div className="mx-auto max-w-4xl">
-          {/* Header */}
-          <div className="mb-8 text-center">
-            <h1 className="mb-2 text-4xl font-bold text-white drop-shadow-lg">
-              Your Cart
+      <div className="min-h-screen px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-10">
+            <h1 className="mb-2 text-3xl font-medium text-gray-900">
+              Shopping Cart
             </h1>
-            <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 to-purple-600"></div>
+            <p className="text-sm text-gray-700">
+              {cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart
+            </p>
           </div>
 
           {cart.length === 0 ? (
-            <div className="py-16 text-center">
-              <div className="mx-auto max-w-md rounded-2xl border border-white/20 bg-black/60 p-12 shadow-2xl backdrop-blur-md">
-                <div className="mb-4 text-6xl">🛒</div>
-                <h2 className="mb-4 text-2xl font-semibold text-white drop-shadow-lg">
+            <div className="py-20 text-center">
+              <div className="mx-auto max-w-sm rounded-2xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl">
+                <div className="mb-4 text-4xl opacity-60">🛒</div>
+                <h2 className="mb-3 text-xl font-medium text-white/90">
                   Your cart is empty
                 </h2>
-                <p className="mb-6 text-gray-100 drop-shadow-md">
-                  Start adding some amazing products to your cart!
+                <p className="mb-6 text-sm text-white/60">
+                  Discover our products and add items you love
                 </p>
                 <Link href="/products">
-                  <Button className="rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3 font-medium text-white shadow-lg transition-all duration-200 hover:from-blue-600 hover:to-purple-700">
-                    Browse Collections
+                  <Button className="rounded-lg bg-blue-600 px-6 py-2 font-normal text-white transition-colors hover:bg-blue-700">
+                    Start Shopping
                   </Button>
                 </Link>
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
               {/* Cart Items */}
-              <div className="rounded-2xl border border-white/20 bg-black/60 p-6 shadow-2xl backdrop-blur-md">
-                <div className="space-y-6">
-                  {cart.map((item, index) => (
-                    <div key={item.id}>
-                      <div className="flex flex-col items-center gap-6 py-4 sm:flex-row">
-                        {/* Product Image */}
-                        <div className="relative h-24 w-24 flex-shrink-0 sm:h-32 sm:w-32">
-                          <Image
-                            src={item.image}
-                            alt={item.title}
-                            fill
-                            className="rounded-xl border border-white/20 object-cover shadow-lg"
-                          />
-                        </div>
-
-                        {/* Product Details */}
-                        <div className="flex-1 text-center sm:text-left">
-                          <h3 className="mb-2 text-xl font-semibold text-white drop-shadow-lg">
-                            {item.title}
-                          </h3>
-                          <div className="flex flex-col gap-2 text-gray-100 sm:flex-row sm:items-center">
-                            <span className="rounded-full border border-white/20 bg-white/30 px-3 py-1 text-sm font-medium">
-                              Qty: {item.quantity}
-                            </span>
-                            <span className="text-lg font-medium drop-shadow-md">
-                              Rs. {item.price} × {item.quantity}
-                            </span>
-                          </div>
-                          <div className="mt-2 text-xl font-bold text-white drop-shadow-lg">
-                            Rs. {item.price * (item.quantity || 1)}
-                          </div>
-                        </div>
-
-                        {/* Remove Button */}
-                        <Button
-                          variant="destructive"
-                          onClick={() => handleRemove(item.id)}
-                          className="rounded-lg border border-red-400 bg-red-500 px-6 py-2 text-white shadow-lg transition-all duration-200 hover:bg-red-600"
-                        >
-                          Remove
-                        </Button>
+              <div className="space-y-4 lg:col-span-2">
+                {cart.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="relative h-20 w-20 flex-shrink-0">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="rounded-lg border border-white/20 object-cover"
+                        />
                       </div>
 
-                      {/* Divider */}
-                      {index < cart.length - 1 && (
-                        <div className="mt-6 border-t border-white/30"></div>
-                      )}
+                      <div className="min-w-0 flex-1">
+                        <h3 className="mb-1 line-clamp-2 text-base font-medium text-black/90">
+                          {item.title}
+                        </h3>
+                        <div className="mb-3 flex items-center gap-3 text-sm text-black">
+                          <span>Qty: {item.quantity}</span>
+                          <span>•</span>
+                          <span>Rs. {item.price.toLocaleString()}</span>
+                        </div>
+                        <div className="font-medium text-black">
+                          Rs.{' '}
+                          {(item.price * (item.quantity || 1)).toLocaleString()}
+                        </div>
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleRemove(item.id)}
+                        className="border-white/20 bg-transparent px-3 py-1 text-xs text-black hover:border-red-400 hover:bg-red-500/20 hover:text-red-300"
+                      >
+                        Remove
+                      </Button>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Cart Summary */}
-              <div className="rounded-2xl border border-white/20 bg-black/60 p-6 shadow-2xl backdrop-blur-md">
-                <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-                  {/* Total */}
-                  <div className="text-center lg:text-left">
-                    <div className="mb-1 text-sm text-gray-100 drop-shadow-md">
-                      Total Amount
+              {/* Order Summary */}
+              <div className="lg:col-span-1">
+                <div className="sticky top-8 rounded-xl border border-gray-300 bg-white/15 p-6 backdrop-blur-xl">
+                  <h2 className="mb-6 text-lg font-medium text-gray-900">
+                    Order Summary
+                  </h2>
+
+                  <div className="mb-6 space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-700">
+                        Subtotal ({cart.length} items)
+                      </span>
+                      <span className="text-gray-900">
+                        Rs. {total.toLocaleString()}
+                      </span>
                     </div>
-                    <div className="text-3xl font-bold text-white drop-shadow-lg">
-                      Rs. {total.toLocaleString()}
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-700">Shipping</span>
+                      <span className="text-gray-900">Free</span>
+                    </div>
+                    <div className="border-t border-gray-400 pt-3">
+                      <div className="flex justify-between">
+                        <span className="font-medium text-gray-900">Total</span>
+                        <span className="text-lg font-medium text-gray-900">
+                          Rs. {total.toLocaleString()}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex w-full flex-col gap-3 sm:flex-row lg:w-auto">
-                    <Link href="/products" className="flex-1 lg:flex-none">
+                  <div className="space-y-3">
+                    <Link href="/checkout" className="block">
+                      <Button className="w-full rounded-lg bg-green-600 py-3 font-normal text-white transition-colors hover:bg-green-700">
+                        Proceed to Checkout
+                      </Button>
+                    </Link>
+
+                    <Link href="/products" className="block">
                       <Button
                         variant="outline"
-                        className="w-full rounded-lg border-white/50 bg-transparent px-6 py-3 text-white shadow-lg backdrop-blur-sm transition-all duration-200 hover:bg-white/20"
+                        className="w-full rounded-lg border-gray-400 bg-white/20 py-2 font-normal text-gray-800 hover:bg-gray-200/50"
                       >
                         Continue Shopping
                       </Button>
                     </Link>
 
-                    <Link href="/checkout" className="flex-1 lg:flex-none">
-                      <Button className="w-full rounded-lg bg-gradient-to-r from-green-500 to-blue-500 px-8 py-3 font-medium text-white shadow-lg transition-all duration-200 hover:from-green-600 hover:to-blue-600">
-                        Checkout
-                      </Button>
-                    </Link>
-
                     <Button
-                      variant="destructive"
+                      variant="outline"
                       onClick={clearCart}
-                      className="w-full rounded-lg border border-red-400 bg-red-500 px-6 py-3 text-white shadow-lg transition-all duration-200 hover:bg-red-600 sm:w-auto"
+                      className="w-full rounded-lg border-red-400 bg-white/20 py-2 text-sm font-normal text-red-700 hover:border-red-500 hover:bg-red-100/50"
                     >
-                      Clear Cart
+                      Clear All Items
                     </Button>
                   </div>
                 </div>
