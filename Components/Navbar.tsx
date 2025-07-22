@@ -10,6 +10,7 @@ import { useCartStore } from '@/lib/store/cartStore';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
+import { useWishlistStore } from '@/lib/store/wishlistStore';
 export default function Navbar() {
   // User authentication state
   const Router = useRouter();
@@ -28,6 +29,11 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    // Clearing cart and wishlist state here
+    useCartStore.getState().clearCart();
+    useWishlistStore.getState().clearWishlist();
     toast.success('Logged out successfully');
     Router.push('/login');
   };
@@ -165,7 +171,7 @@ export default function Navbar() {
                     <li>
                       <Button
                         onClick={handleLogout}
-                        className="bg-white text-black hover:underline"
+                        className="cursor-pointer bg-white text-black"
                       >
                         Logout
                       </Button>

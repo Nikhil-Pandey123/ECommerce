@@ -1,6 +1,6 @@
 
 import { create } from 'zustand';
-
+ 
 interface WishlistItem {
   id: string;
   title: string;

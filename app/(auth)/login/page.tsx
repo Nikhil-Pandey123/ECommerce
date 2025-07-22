@@ -97,33 +97,6 @@ const Login = () => {
     }
   };
 
-  const handleProviderLogin = async (provider: 'google' | 'facebook') => {
-    try {
-      toast.loading('Redirecting to ' + provider + '...', {
-        id: 'provider-login',
-      });
-
-      const result = await signIn(provider, {
-        callbackUrl: '/',
-        redirect: false,
-      });
-
-      if (result?.error) {
-        toast.error('Failed to sign in with ' + provider, {
-          id: 'provider-login',
-        });
-      } else if (result?.ok) {
-        toast.success('Successfully signed in with ' + provider, {
-          id: 'provider-login',
-        });
-      }
-    } catch (error) {
-      toast.error('Failed to sign in with ' + provider, {
-        id: 'provider-login',
-      });
-    }
-  };
-
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-4 py-12">
       <div className="w-full max-w-md">
@@ -197,72 +170,8 @@ const Login = () => {
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
-
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-4 text-gray-500">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <Button
-                  onClick={() => handleProviderLogin('google')}
-                  className="h-11 w-full rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors duration-200 hover:bg-gray-50"
-                  disabled={isLoading}
-                  type="button"
-                >
-                  <Image
-                    src="icons/google.svg"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="mr-3"
-                  />
-                  Continue with Google
-                </Button>
-
-                <Button
-                  onClick={() => handleProviderLogin('facebook')}
-                  className="h-11 w-full rounded-lg bg-blue-600 text-white transition-colors duration-200 hover:bg-blue-700"
-                  disabled={isLoading}
-                  type="button"
-                >
-                  <Image
-                    src="icons/avatar.svg"
-                    alt="Facebook"
-                    width={20}
-                    height={20}
-                    className="mr-3"
-                  />
-                  Continue with Facebook
-                </Button>
-              </div>
-            </div>
-
-            <div className="mt-8 text-center">
-              <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
-                <a
-                  href="/signup"
-                  className="font-medium text-blue-600 transition-colors hover:text-blue-500"
-                >
-                  Create one here
-                </a>
-              </p>
-            </div>
           </CardContent>
         </Card>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-xs text-gray-500">
-          <p>2024 Airflex. All rights reserved.</p>
-        </div>
       </div>
     </div>
   );

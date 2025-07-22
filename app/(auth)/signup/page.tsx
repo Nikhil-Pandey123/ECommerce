@@ -25,7 +25,7 @@ const Register = () => {
     if (user) {
       router.replace('/');
     }
-  });
+  }, [router]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,25 +40,6 @@ const Register = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleProviderRegister = async (provider: 'google' | 'facebook') => {
-    setIsLoading(true);
-    try {
-      toast.loading('Redirecting to ' + provider + '...', {
-        id: 'provider-signup',
-      });
-
-      await signIn(provider, {
-        callbackUrl: '/',
-      });
-    } catch (error) {
-      toast.error('Failed to sign up with ' + provider, {
-        id: 'provider-signup',
-      });
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -346,53 +327,6 @@ const Register = () => {
               </Button>
             </form>
 
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-4 text-gray-500">
-                    Or sign up with
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <Button
-                  onClick={() => handleProviderRegister('google')}
-                  className="h-11 w-full rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors duration-200 hover:bg-gray-50"
-                  disabled={isLoading}
-                  type="button"
-                >
-                  <Image
-                    src="icons/google.svg"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="mr-3"
-                  />
-                  Sign up with Google
-                </Button>
-
-                <Button
-                  onClick={() => handleProviderRegister('facebook')}
-                  className="h-11 w-full rounded-lg bg-blue-600 text-white transition-colors duration-200 hover:bg-blue-700"
-                  disabled={isLoading}
-                  type="button"
-                >
-                  <Image
-                    src="icons/avatar.svg"
-                    alt="Facebook"
-                    width={20}
-                    height={20}
-                    className="mr-3"
-                  />
-                  Sign up with Facebook
-                </Button>
-              </div>
-            </div>
-
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
@@ -406,11 +340,6 @@ const Register = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-xs text-gray-500">
-          <p>© 2024 Airflex. All rights reserved.</p>
-        </div>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 'use client';
+import { useCartStore } from '@/lib/store/cartStore';
+import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useRouter } from 'next/navigation';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, use, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 // AirflexBackground Component
@@ -88,7 +90,13 @@ export default function DashboardPage() {
 
   const handleLogout = () => {
     try {
+      // Clearing out localStorage and state
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
+
+      useCartStore.getState().clearCart();
+      useWishlistStore.getState().clearWishlist();
+
       toast.success('Logged out successfully');
       router.push('/');
     } catch (error) {
@@ -157,7 +165,7 @@ export default function DashboardPage() {
             </div>
             <button
               onClick={handleLogout}
-              className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-red-600 shadow-sm transition-colors duration-200 hover:bg-red-100"
+              className="cursor-pointer rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-red-600 shadow-sm transition-colors duration-200 hover:bg-red-100"
             >
               Logout
             </button>
