@@ -10,9 +10,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import AirflexBackground from '@/Components/AirflexBackground';
 import { useState } from 'react';
-
+import { useRouter } from 'next/navigation';
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const { cart, clearCart } = useCartStore();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,12 +29,7 @@ export default function CheckoutPage() {
       toast.error('Please fill out all fields');
       return;
     }
-
-    toast.success('🎉 Order placed successfully!');
-    clearCart();
-    setName('');
-    setEmail('');
-    setAddress('');
+    const loadingToast = toast.loading('Processing your order...');
 
     try {
       const response = await fetch('http://localhost:5000/api/orders', {
@@ -55,10 +51,18 @@ export default function CheckoutPage() {
         }),
       });
       const result = await response.json();
+      console.log(result);
 
-      if (!response.ok) {
-        throw new Error(result.message || 'Failed to place order');
+      if (response.ok) {
+        toast.dismiss(loadingToast);
+        toast.success('Redirecting to payment page...', {
+          duration: 1500,
+        });
       }
+
+      setTimeout(() => {
+        router.push('/checkout/payment');
+      }, 1000);
     } catch (error) {
       toast.error('Failed to place order. Please try again.');
       console.error('Error while placing order: ', error);

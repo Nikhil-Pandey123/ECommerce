@@ -70,7 +70,7 @@ const Login = () => {
       if (res.ok) {
         toast.success('Login successful! Redirecting...', {
           id: 'login',
-          duration: 3000,
+          duration: 2000,
         });
 
         localStorage.setItem('token', data.token);
