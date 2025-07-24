@@ -11,6 +11,7 @@ import Link from 'next/link';
 import AirflexBackground from '@/Components/AirflexBackground';
 import { useState } from 'react';
 
+
 export default function CheckoutPage() {
   const { cart, clearCart } = useCartStore();
   const [name, setName] = useState('');

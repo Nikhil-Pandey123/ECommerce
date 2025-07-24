@@ -6,12 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/Components/ui/button';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
-
+import { toast } from 'sonner';
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlistStore();
   const { addToCart } = useCartStore();
 
   const handleAddToCart = (item: any) => {
+    toast.success('Added to cart', {
+      duration: 1000,
+    });
     addToCart({
       ...item,
       selectedSize: 'M', // Default size

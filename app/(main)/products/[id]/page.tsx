@@ -3,10 +3,10 @@ import { dummyProducts } from '@/lib/data/products';
 import Image from 'next/image';
 import { Button } from '@/Components/ui/button';
 import { useCartStore } from '@/lib/store/cartStore';
-import { useWishlistStore } from '@/lib/store/wishlistStore'; // Import wishlist store
+import { useWishlistStore } from '@/lib/store/wishlistStore';
 import Link from 'next/link';
 import AirflexBackground from '@/Components/AirflexBackground';
-import { useState, useEffect } from 'react'; // Add useEffect
+import { useState, useEffect } from 'react';
 import {
   Heart,
   Share2,
@@ -18,7 +18,7 @@ import {
   Award,
   MoreHorizontal,
 } from 'lucide-react';
-
+import { toast } from 'sonner';
 interface Props {
   params: { id: string };
 }
@@ -70,6 +70,9 @@ export default function ProductDetailPage({ params }: Props) {
   const colors = ['Black', 'White', 'Blue', 'Gray'];
 
   const handleAddToCart = () => {
+    toast.success('Added to Cart', {
+      duration: 1000,
+    });
     addToCart({
       ...product,
       selectedSize,
@@ -79,6 +82,12 @@ export default function ProductDetailPage({ params }: Props) {
 
   // Handle wishlist toggle
   const handleWishlistToggle = () => {
+    toast.success(
+      isWishlisted ? 'Removed from Wishlist' : 'Added to Wishlist',
+      {
+        duration: 1000,
+      }
+    );
     if (isWishlisted) {
       removeFromWishlist(product.id);
     } else {

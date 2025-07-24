@@ -83,10 +83,10 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/blog"
+              href="/customization"
               className="transition-colors hover:text-gray-300"
             >
-              Blog
+              Customization
             </Link>
           </li>
           <li>
