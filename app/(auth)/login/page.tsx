@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -169,6 +170,16 @@ const Login = () => {
               >
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
+
+              <p className="text-center">
+                Don't have an account ?{' '}
+                <Link
+                  href={'/signup'}
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Sign Up
+                </Link>
+              </p>
             </form>
           </CardContent>
         </Card>

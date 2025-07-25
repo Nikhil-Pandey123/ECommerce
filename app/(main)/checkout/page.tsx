@@ -61,7 +61,7 @@ export default function CheckoutPage() {
       }
 
       setTimeout(() => {
-        router.push('/checkout/payment');
+        router.push(`/checkout/payment?orderId=${result.orderId}`);
       }, 1000);
     } catch (error) {
       toast.error('Failed to place order. Please try again.');

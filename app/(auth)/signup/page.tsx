@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const Register = () => {
   const router = useRouter();
@@ -330,12 +331,12 @@ const Register = () => {
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <a
+                <Link
                   href="/login"
                   className="font-medium text-blue-600 transition-colors hover:text-blue-500"
                 >
                   Sign in here
-                </a>
+                </Link>
               </p>
             </div>
           </CardContent>
