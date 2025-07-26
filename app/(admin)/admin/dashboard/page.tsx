@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import SalesChart from '@/Components/SalesChart';
 import CategoryChart from '@/Components/CategoryChart';
+import OrderChart from '@/Components/OrderChart';
 
 const page = () => {
   return (
@@ -24,6 +25,8 @@ const page = () => {
           <SalesChart />
 
           <CategoryChart />
+
+          <OrderChart />
         </div>
       </main>
     </div>

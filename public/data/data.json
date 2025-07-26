@@ -13,5 +13,13 @@
     { "name": "Fitness Equipment", "value": 350 },
     { "name": "Outdoor Gear", "value": 300 },
     { "name": "Accessories", "value": 200 }
+  ],
+  "orderStatus": [
+    { "name": "Pending", "value": 120 },
+    { "name": "Processing", "value": 180 },
+    { "name": "Shipped", "value": 240 },
+    { "name": "Delivered", "value": 400 },
+    { "name": "Cancelled", "value": 60 },
+    { "name": "Returned", "value": 40 }
   ]
 }

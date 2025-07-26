@@ -108,10 +108,9 @@ const Sidebar = () => {
           <Image
             src="/Airflex photo/airflex-logo-1.png"
             alt="logo"
-            width={45}
-            height={45}
+            width={100}
+            height={100}
           />
-          <span className="text-xl font-semibold text-white">AIRFLEX</span>
         </div>
 
         {/* Navigation */}

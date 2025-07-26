@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // New fields
+    role: { type: String, default: 'user' },
+    status: { type: String, default: 'active' },
+    createdAt: { type: Date, default: Date.now },
   },
   {
     timestamps: true,
