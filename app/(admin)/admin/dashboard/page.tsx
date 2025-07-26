@@ -7,6 +7,7 @@ import {
   Users,
 } from 'lucide-react';
 import SalesChart from '@/Components/SalesChart';
+import CategoryChart from '@/Components/CategoryChart';
 
 const page = () => {
   return (
@@ -21,6 +22,8 @@ const page = () => {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <SalesChart />
+
+          <CategoryChart />
         </div>
       </main>
     </div>

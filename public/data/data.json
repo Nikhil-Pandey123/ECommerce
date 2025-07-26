@@ -6,5 +6,12 @@
     { "name": "Apr", "sales": 1200 },
     { "name": "June", "sales": 1300 },
     { "name": "July", "sales": 1400 }
+  ],
+  "category": [
+    { "name": "Apparel", "value": 500 },
+    { "name": "Footwear", "value": 400 },
+    { "name": "Fitness Equipment", "value": 350 },
+    { "name": "Outdoor Gear", "value": 300 },
+    { "name": "Accessories", "value": 200 }
   ]
 }
