@@ -15,6 +15,7 @@ import {
   X,
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('dashboard');
@@ -81,10 +82,7 @@ const Sidebar = () => {
         className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b border-gray-800 bg-[#1e1e1e] p-4 md:hidden"
       >
         <div className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-            <span className="text-sm font-bold text-white">A</span>
-          </div>
-          <span className="text-xl font-semibold text-white">Admin</span>
+          <span className="text-xl font-semibold text-white">AIRFLEX</span>
         </div>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -101,18 +99,20 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         id="sidebar"
-        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-gray-800 bg-[#1e1e1e] transition-transform duration-300 ease-in-out md:relative md:z-auto md:transform-none md:transition-none ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} `}
+        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-gray-800 bg-[#1e1e1e] transition-transform duration-300 ease-in-out md:relative md:z-auto md:transform-none md:transition-none ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
       >
         {/* Logo */}
-        <div className="hidden items-center space-x-3 border-b border-gray-800 p-6 md:flex">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-            <span className="text-sm font-bold text-white">A</span>
-          </div>
-          <span className="text-xl font-semibold text-white">Admin</span>
+        <div className="flex items-center space-x-3 border-b border-gray-800 p-6">
+          <Image
+            src="/Airflex photo/airflex-logo-1.png"
+            alt="logo"
+            width={45}
+            height={45}
+          />
+          <span className="text-xl font-semibold text-white">AIRFLEX</span>
         </div>
-
-        {/* Mobile spacing to account for fixed header */}
-        <div className="h-16 md:hidden" />
 
         {/* Navigation */}
         <nav className="flex-1 space-y-4 overflow-y-auto p-4">
@@ -155,7 +155,7 @@ const Sidebar = () => {
               </div>
               <div className="min-w-0 flex-1 text-left">
                 <p className="truncate text-sm font-medium text-white">
-                  Nikhil Pandey{' '}
+                  Nikhil Pandey
                 </p>
                 <p className="truncate text-xs text-gray-400">Administrator</p>
               </div>
@@ -199,7 +199,6 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="h-16 md:hidden" />
     </>
   );
 };
