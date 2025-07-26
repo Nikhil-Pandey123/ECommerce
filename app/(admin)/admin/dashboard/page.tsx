@@ -6,6 +6,7 @@ import {
   SquareActivityIcon,
   Users,
 } from 'lucide-react';
+import SalesChart from '@/Components/SalesChart';
 
 const page = () => {
   return (
@@ -16,6 +17,10 @@ const page = () => {
           <StatCard name={'Total Clients'} icon={Users} value={15} />
           <StatCard name={'Total Products'} icon={ShoppingBag} value={'230'} />
           <StatCard name={'Stock'} icon={SquareActivityIcon} value={'12,000'} />
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <SalesChart />
         </div>
       </main>
     </div>
