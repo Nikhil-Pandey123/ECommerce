@@ -10,11 +10,14 @@ import PurchasedItem from './models/purchasedItemModel.js';
 import Payment from './models/paymentModel.js';
 import Order from './models/Order.js';
 import Product from './models/Products.js';
+import User from './models/User.js';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
+
+const router = express.Router();
 
 app.use(
   cors({
@@ -156,13 +159,33 @@ app.get('/create-item', async (req, res) => {
   });
 });
 
+// Admin user routes
+app.get('/getUsers', async (req, res) => {
+  try {
+    const users = await User.find({})
+      .select('-password')
+      .sort({ createdAt: -1 });
+    res.json({ success: true, users });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.get('/getOrders', async (req, res) => {
+  try {
+    const orders = await Order.find({}).sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ MongoDB connected successfully');
+    console.log('MongoDB connected successfully');
 
-    // Start server only if DB connects
     app.listen(5000, () => {
       console.log('Server is running on http://localhost:5000');
     });

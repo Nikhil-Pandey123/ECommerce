@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
+
 export default function Navbar() {
   // User authentication state
   const Router = useRouter();
@@ -36,6 +37,42 @@ export default function Navbar() {
     useWishlistStore.getState().clearWishlist();
     toast.success('Logged out successfully');
     Router.push('/login');
+  };
+
+  const handleCustomization = async e => {
+    e.preventDefault(); // Prevent default link navigation
+
+    try {
+      // Option 1: Direct URL approach (if you know the exact URL)
+      const customizationUrl = 'http://localhost:5173/threejs-react-TDesigner/'; // Base URL of your friend's app
+      window.location.href = customizationUrl;
+
+      // Option 2: API approach (if there's an API endpoint that returns the URL)
+      // Uncomment and modify this if you have an actual API endpoint
+      /*
+      const response = await fetch('http://localhost:5173/api/customization-url', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      } else {
+        toast.error('Customization URL not available');
+      }
+      */
+    } catch (error) {
+      console.error('Failed to open customization tool:', error);
+      toast.error('Failed to open customization tool. Please try again.');
+    }
   };
 
   // Cart related
@@ -82,12 +119,13 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link
-              href="/customization"
-              className="transition-colors hover:text-gray-300"
+            {/* Fixed: Use button instead of Link for external navigation */}
+            <button
+              onClick={handleCustomization}
+              className="cursor-pointer border-none bg-transparent font-medium text-white transition-colors hover:text-gray-300"
             >
               Customization
-            </Link>
+            </button>
           </li>
           <li>
             <Link
@@ -150,7 +188,6 @@ export default function Navbar() {
                     <li>
                       <Link href="/login">Login</Link>
                     </li>
-
                     <li>
                       <Link href="/signup">Sign Up</Link>
                     </li>
@@ -166,7 +203,6 @@ export default function Navbar() {
                     <li>
                       <Link href="/checkout">Checkout</Link>
                     </li>
-
                     {/* Logout Button */}
                     <li>
                       <Button
