@@ -28,7 +28,6 @@ const Sidebar = () => {
     { id: 'orders', label: 'Orders', icon: ShoppingCart },
     { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'notifications', label: 'Notifications', icon: Bell },
-    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   // Close sidebar when clicking outside on mobile
@@ -81,7 +80,12 @@ const Sidebar = () => {
         className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b border-gray-800 bg-[#1e1e1e] p-4 md:hidden"
       >
         <div className="flex items-center space-x-2">
-          <span className="text-xl font-semibold text-white">AIRFLEX</span>
+          <Image
+            src="/Airflex photo/airflex-logo-1.png"
+            alt="logo"
+            width={100}
+            height={100}
+          />
         </div>
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -107,8 +111,8 @@ const Sidebar = () => {
           <Image
             src="/Airflex photo/airflex-logo-1.png"
             alt="logo"
-            width={100}
-            height={100}
+            width={130}
+            height={130}
           />
         </div>
 
