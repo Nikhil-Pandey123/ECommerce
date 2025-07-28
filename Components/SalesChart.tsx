@@ -9,8 +9,13 @@ import {
   Tooltip,
   CartesianGrid,
 } from 'recharts';
+import { useTheme } from 'next-themes';
 const SalesChart = () => {
   const [salesData, setSalesData] = useState([]);
+  const { theme, resolvedTheme } = useTheme();
+
+  const currentTheme = resolvedTheme || theme || 'light';
+  const isDark = currentTheme === 'dark';
 
   useEffect(() => {
     fetch('/data/data.json')
@@ -23,7 +28,7 @@ const SalesChart = () => {
   }, []);
 
   return (
-    <div className="mx-2 rounded-xl border border-[#1f1f1f] bg-[#1e1e1e] p-4 shadow-lg backdrop-blur-md md:mx-0 md:p-6">
+    <div className="mx-2 rounded-xl border border-[#1f1f1f] p-4 text-black shadow-lg backdrop-blur-md md:mx-0 md:p-6 dark:text-white">
       <h2 className="mb-4 text-center text-base font-medium text-white md:text-left md:text-lg">
         Sales Overview
       </h2>

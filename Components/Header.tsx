@@ -1,7 +1,7 @@
 import { Bell } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-
+import { ModeToggle } from './mode-toggle';
 const Header = () => {
   return (
     <header className="mx-4 border-b border-[#1f1f1f] bg-[#1e1e1e] shadow-lg sm:mx-6 lg:mx-8">
@@ -24,13 +24,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center space-x-2 sm:space-x-3">
-            <Image
-              src="/Airflex photo/admin.png"
-              alt="Airflex Logo"
-              width={30}
-              height={30}
-              className="cursor-pointer rounded-full shadow-md"
-            />
+            <ModeToggle />
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ const CategoryChart = () => {
   const outerRadius = isSmallScreen ? 60 : 80;
 
   return (
-    <div className="mx-2 rounded-xl border border-[#1f1f1f] bg-[#1e1e1e] p-4 shadow-lg backdrop-blur-md md:mx-0 md:p-6">
+    <div className="mx-2 rounded-xl border border-[#1f1f1f] p-4 shadow-lg backdrop-blur-md md:mx-0 md:p-6">
       <h2 className="mb-4 text-center text-base font-medium text-gray-100 md:text-left md:text-lg">
         Category Overview
       </h2>
