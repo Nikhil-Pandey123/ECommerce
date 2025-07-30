@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import orderRoutes from './routes/orderRoute.js';
+import adminRoutes from './routes/adminRoutes.js'; // Add admin routes
+import { protect, requireAdmin } from './middleware/auth.js'; // Import middleware
 import { getEsewaPaymentHash, verifyEsewaPayment } from './esewa.js';
 import PurchasedItem from './models/purchasedItemModel.js';
 import Payment from './models/paymentModel.js';
@@ -22,7 +24,7 @@ const router = express.Router();
 app.use(
   cors({
     origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true,
   })
 );
@@ -39,13 +41,14 @@ app.get('/', (req, res) => {
 app.use('/api/users', authRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/admin', adminRoutes); // Add protected admin routes
 
+// eSewa payment routes (keep your existing payment logic)
 app.post('/initialize-esewa', async (req, res) => {
   console.log('Received request: ', req.body);
   try {
-    const { orderId, totalPrice } = req.body; // Changed from itemId to orderId
+    const { orderId, totalPrice } = req.body;
 
-    // Validate that the order exists
     const orderData = await Order.findById(orderId);
     if (!orderData) {
       return res.status(400).json({
@@ -54,20 +57,17 @@ app.post('/initialize-esewa', async (req, res) => {
       });
     }
 
-    // Create a record for the purchase
     const purchasedItemData = await PurchasedItem.create({
-      item: orderId, // Using orderId as the item reference
+      item: orderId,
       paymentMethod: 'esewa',
       totalPrice: totalPrice,
     });
 
-    // Initiate payment with eSewa
     const paymentInitiate = await getEsewaPaymentHash({
       amount: totalPrice,
       transaction_uuid: purchasedItemData._id,
     });
 
-    // Respond with payment details
     res.json({
       success: true,
       payment: paymentInitiate,
@@ -81,8 +81,6 @@ app.post('/initialize-esewa', async (req, res) => {
     });
   }
 });
-
-// FIXED: Added proper error handling and response
 app.get('/complete-payment', async (req, res) => {
   const { data } = req.query;
 
@@ -94,10 +92,8 @@ app.get('/complete-payment', async (req, res) => {
       });
     }
 
-    // Verify payment with eSewa
     const paymentInfo = await verifyEsewaPayment(data);
 
-    // Find the purchased item using the transaction UUID
     const purchasedItemData = await PurchasedItem.findById(
       paymentInfo.response.transaction_uuid
     );
@@ -109,7 +105,6 @@ app.get('/complete-payment', async (req, res) => {
       });
     }
 
-    // Create a new payment record in the database
     const paymentData = await Payment.create({
       transactionId: paymentInfo.decodedData.transaction_code,
       productId: paymentInfo.response.transaction_uuid,
@@ -120,26 +115,22 @@ app.get('/complete-payment', async (req, res) => {
       status: 'success',
     });
 
-    // Update the purchased item status to 'completed'
     await PurchasedItem.findByIdAndUpdate(
       paymentInfo.response.transaction_uuid,
       { $set: { status: 'completed' } }
     );
 
-    // FIXED: Redirect to success page instead of JSON response
     res.redirect(
       `http://localhost:3000/complete-payment?transactionId=${paymentData.transactionId}`
     );
   } catch (error) {
     console.error('Payment completion error:', error);
-    // Redirect to failure page on error
     res.redirect(
       `http://localhost:3000/payment-failure?error=${encodeURIComponent(error.message)}`
     );
   }
 });
 
-// FIXED: Added failure endpoint
 app.get('/payment-failure', (req, res) => {
   res.redirect('http://localhost:3000/payment-failure');
 });
@@ -159,7 +150,8 @@ app.get('/create-item', async (req, res) => {
   });
 });
 
-// Admin user routes
+// DEPRECATED: Keep these for backwards compatibility, but they're now unprotected
+// You should migrate to using /api/admin/users and /api/admin/orders instead
 app.get('/getUsers', async (req, res) => {
   try {
     const users = await User.find({})

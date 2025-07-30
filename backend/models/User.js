@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     // New fields
-    role: { type: String, default: 'user' },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     status: { type: String, default: 'active' },
     createdAt: { type: Date, default: Date.now },
   },

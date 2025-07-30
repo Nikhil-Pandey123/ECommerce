@@ -32,6 +32,7 @@ export const register = async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
+      role: role || 'user',
     });
 
     await user.save();
@@ -62,9 +63,19 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: 'Invalid credentials' });
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '2d',
-    });
+    const isAdmin = user.role === 'admin';
+
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        role: user.role,
+        isAdmin: isAdmin, // Include admin status in token
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '2d',
+      }
+    );
 
     res.json({
       token,
@@ -73,6 +84,8 @@ export const login = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role,
+        isAdmin: isAdmin, // Include admin status in response
       },
     });
   } catch (err) {

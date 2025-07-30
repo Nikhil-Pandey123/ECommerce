@@ -225,7 +225,6 @@ const Register = () => {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Create a password"
-                    value={formData.password}
                     onChange={e =>
                       handleInputChange('password', e.target.value)
                     }
@@ -260,7 +259,6 @@ const Register = () => {
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
                     placeholder="Confirm your password"
-                    value={formData.confirmPassword}
                     onChange={e =>
                       handleInputChange('confirmPassword', e.target.value)
                     }

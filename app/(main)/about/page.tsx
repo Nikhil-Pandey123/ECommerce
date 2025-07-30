@@ -1,5 +1,6 @@
 'use client';
 import AirflexBackground from '@/Components/AirflexBackground';
+import Footer from '@/Components/Footer';
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -146,6 +147,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        <Footer />
       </AirflexBackground>
     </div>
   );

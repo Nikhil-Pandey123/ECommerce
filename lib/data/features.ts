@@ -64,5 +64,20 @@ export const mainFeatures = [
         "Wishlist and favorites"
       ],
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop"
-    }
+    },
+    {
+  id: 4,
+  title: "Smart Fit & Performance Insights",
+  subtitle: "Gear That Moves With You",
+  description: "Leverage advanced motion tracking and AI to get real-time feedback on fit, performance, and style recommendations. Designed for athletes and active users.",
+  icon: Cpu,
+  color: "from-red-500 to-orange-500",
+  features: [
+    "AI-based fit assessment",
+    "Activity-specific gear suggestions",
+    "Motion capture compatibility",
+    "Real-world performance tracking"
+  ],
+  image: "https://images.unsplash.com/photo-1600180758890-d5a6abe39a06?w=600&h=400&fit=crop"
+}
   ];

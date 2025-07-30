@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import Link from 'next/link';
 import Image from 'next/image';
 import AirflexBackground from '@/Components/AirflexBackground';
+import Footer from '@/Components/Footer';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -299,6 +300,7 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
+        <Footer />
       </AirflexBackground>
     </div>
   );

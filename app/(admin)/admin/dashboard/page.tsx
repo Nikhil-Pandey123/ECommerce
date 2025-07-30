@@ -9,8 +9,8 @@ import {
 import SalesChart from '@/Components/SalesChart';
 import CategoryChart from '@/Components/CategoryChart';
 import OrderChart from '@/Components/OrderChart';
-
-const page = () => {
+import ProtectedRoute from '@/Components/protectedRoute';
+const Page = () => {
   return (
     <div className="bg-background relative z-10 flex-1 overflow-auto">
       <main className="mx-auto max-w-7xl px-4 py-4 lg:px-8">
@@ -60,5 +60,12 @@ const page = () => {
     </div>
   );
 };
+const AdminDashboardPage = () => {
+  return (
+    <ProtectedRoute requireAdmin={true}>
+      <Page />
+    </ProtectedRoute>
+  );
+};
 
-export default page;
+export default AdminDashboardPage;

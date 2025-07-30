@@ -66,6 +66,7 @@ const Login = () => {
       });
 
       const data = await res.json();
+      console.log('Login Response:', data);
 
       if (res.ok) {
         toast.success('Login successful! Redirecting...', {
@@ -78,8 +79,16 @@ const Login = () => {
 
         setFormData({ email: '', password: '' });
 
+        // Check if user is admin and redirect accordingly\
+        console.log('User Role:', data.user.role);
+        console.log('Is Admin:', data.user.isAdmin);
+
         setTimeout(() => {
-          router.replace('/dashboard');
+          if (data.user.role === 'admin') {
+            router.replace('/admin/dashboard');
+          } else {
+            router.replace('/dashboard');
+          }
         }, 1000);
       } else {
         toast.error(data.message || 'Login failed. Please try again.', {

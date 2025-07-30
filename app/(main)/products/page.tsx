@@ -14,6 +14,7 @@ import ProductCard from '@/Components/ProductListing';
 import { useState } from 'react';
 import { dummyProducts } from '@/lib/data/products';
 import Link from 'next/link';
+import Footer from '@/Components/Footer';
 
 export default function ProductsPage() {
   const [search, setSearch] = useState('');
@@ -208,6 +209,7 @@ export default function ProductsPage() {
             </div>
           </div>
         </div>
+        <Footer />
       </AirflexBackground>
     </div>
   );
