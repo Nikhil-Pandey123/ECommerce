@@ -13,9 +13,9 @@ import { Button } from './ui/button';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 
 export default function Navbar() {
-  // User authentication state
   const Router = useRouter();
   const [user, setUser] = useState(null);
+  const [openSheet, setOpenSheet] = useState(false); // <-- Added state to control Sheet
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -31,60 +31,34 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-
-    // Clearing cart and wishlist state here
     useCartStore.getState().clearCart();
     useWishlistStore.getState().clearWishlist();
+
     toast.success('Logged out successfully');
+
+    setOpenSheet(false); // <-- Close the Sheet on logout
     Router.push('/login');
   };
 
   const handleCustomization = async e => {
-    e.preventDefault(); // Prevent default link navigation
-
+    e.preventDefault();
     try {
-      // Option 1: Direct URL approach (if you know the exact URL)
-      const customizationUrl = 'http://localhost:5173/threejs-react-TDesigner/'; // Base URL of your friend's app
+      const customizationUrl = 'http://localhost:5173/threejs-react-TDesigner/';
       window.location.href = customizationUrl;
-
-      // Option 2: API approach (if there's an API endpoint that returns the URL)
-      // Uncomment and modify this if you have an actual API endpoint
-      /*
-      const response = await fetch('http://localhost:5173/api/customization-url', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      
-      if (data?.url) {
-        window.open(data.url, '_blank');
-      } else {
-        toast.error('Customization URL not available');
-      }
-      */
     } catch (error) {
       console.error('Failed to open customization tool:', error);
       toast.error('Failed to open customization tool. Please try again.');
     }
   };
 
-  // Cart related
   const cartCount = useCartStore(state => state.getCartCount());
   const pathname = usePathname();
 
-  // Determine navbar background based on current route
   const getNavbarBackground = () => {
     if (pathname === '/') {
-      return 'bg-transparent'; // Transparent for home page
+      return 'bg-transparent';
     }
-    return 'bg-black/90 backdrop-blur-sm'; // Semi-transparent black with blur for other pages
+    return 'bg-black/90 backdrop-blur-sm';
   };
 
   return (
@@ -119,7 +93,6 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            {/* Fixed: Use button instead of Link for external navigation */}
             <button
               onClick={handleCustomization}
               className="cursor-pointer border-none bg-transparent font-medium text-white transition-colors hover:text-gray-300"
@@ -174,7 +147,7 @@ export default function Navbar() {
           </Dialog>
 
           {/* Settings (Sidebar Sheet) */}
-          <Sheet>
+          <Sheet open={openSheet} onOpenChange={setOpenSheet}>
             <SheetTrigger asChild>
               <Settings className="h-6 w-6 cursor-pointer transition-colors hover:text-gray-300" />
             </SheetTrigger>
@@ -203,7 +176,6 @@ export default function Navbar() {
                     <li>
                       <Link href="/checkout">Checkout</Link>
                     </li>
-                    {/* Logout Button */}
                     <li>
                       <Button
                         onClick={handleLogout}

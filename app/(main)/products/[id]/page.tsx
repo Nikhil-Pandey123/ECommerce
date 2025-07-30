@@ -170,27 +170,6 @@ export default function ProductDetailPage({ params }: Props) {
               </div>
 
               {/* Thumbnail Images */}
-              <div className="flex gap-3 overflow-x-auto pb-2">
-                {productImages.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveImageIndex(index)}
-                    className={`aspect-square w-20 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all ${
-                      activeImageIndex === index
-                        ? 'border-cyan-500 shadow-lg shadow-cyan-500/30'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
-                  >
-                    <Image
-                      src={img}
-                      alt={`${product.title} view ${index + 1}`}
-                      width={80}
-                      height={80}
-                      className="h-full w-full bg-white object-contain p-2"
-                    />
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Product Info Section */}
@@ -206,7 +185,7 @@ export default function ProductDetailPage({ params }: Props) {
                       {product.category}
                     </p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-3">
                     <button
                       onClick={handleWishlistToggle}
                       className={`rounded-full p-3 transition-all ${
@@ -218,9 +197,6 @@ export default function ProductDetailPage({ params }: Props) {
                       <Heart
                         className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`}
                       />
-                    </button>
-                    <button className="rounded-full bg-gray-100 p-3 text-gray-500 transition-all hover:bg-gray-200">
-                      <Share2 className="h-5 w-5" />
                     </button>
 
                     <Link
@@ -320,9 +296,6 @@ export default function ProductDetailPage({ params }: Props) {
                       +
                     </button>
                   </div>
-                  <span className="text-sm text-gray-600">
-                    Only 8 left in stock
-                  </span>
                 </div>
               </div>
 
@@ -334,13 +307,6 @@ export default function ProductDetailPage({ params }: Props) {
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
                   Add to Cart - Rs. {product.price * quantity}
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="w-full cursor-pointer rounded-2xl border-2 border-gray-300 bg-white py-4 text-lg font-bold text-gray-900 transition-all hover:border-gray-400 hover:bg-gray-50"
-                >
-                  Buy Now
                 </Button>
               </div>
 

@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 const Sidebar = () => {
+  const router = useRouter();
   const [activeItem, setActiveItem] = useState('dashboard');
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -63,6 +65,14 @@ const Sidebar = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsProfileOpen(false);
+    toast.success('Logged out successfully');
+    router.push('/login');
+  };
 
   return (
     <>
@@ -190,7 +200,10 @@ const Sidebar = () => {
                 <div className="border-t border-gray-700">
                   <button
                     className="flex w-full items-center space-x-3 rounded-b-lg px-3 py-2 text-red-400 transition-colors hover:bg-[#3a3a3a]"
-                    onClick={() => setIsProfileOpen(false)}
+                    onClick={() => {
+                      setIsProfileOpen(false);
+                      handleLogOut();
+                    }}
                   >
                     <LogOut className="h-4 w-4 flex-shrink-0" />
                     <span className="text-sm">Sign Out</span>

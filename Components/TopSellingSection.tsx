@@ -42,14 +42,6 @@ const TopSellingSection = () => {
         </div>
 
         {/* View all button */}
-        <div className="text-center">
-          <Link
-            href="/products"
-            className="inline-block rounded-lg bg-cyan-600 px-8 py-3 text-white transition-colors duration-200 hover:bg-cyan-700"
-          >
-            View All Products
-          </Link>
-        </div>
       </div>
     </section>
   );

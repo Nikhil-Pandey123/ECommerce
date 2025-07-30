@@ -1,5 +1,21 @@
 const checkAdminAccess = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        message: 'Authentication required',
+        authorized: false,
+        authenticated: false,
+      });
+    }
+
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        message: 'Admin access required',
+        authorized: false,
+        authenticated: true,
+      });
+    }
+
     res.status(200).json({
       authorized: true,
       authenticated: true,

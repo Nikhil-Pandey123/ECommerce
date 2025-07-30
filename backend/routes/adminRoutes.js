@@ -1,4 +1,3 @@
-// routes/adminRoutes.js
 import express from 'express';
 import {
   getDashboardData,
@@ -10,20 +9,11 @@ import { protect, requireAdmin, protectAdmin } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// All routes in this file are protected using the admin middleware
 router.use(protectAdmin);
 
-// Admin dashboard routes
-
-router.get('/dashboard', requireAdmin, getDashboardData);
-router.get('/check-access', protect, requireAdmin, checkAdminAccess);
-
-// User management routes
-router.get('/users', requireAdmin, getAllUsers);
-router.delete('/users/:id', requireAdmin, deleteUser);
-//  more admin routes here
-// router.get('/orders', getAllOrders);
-// router.get('/products', getAllProducts);
-// router.post('/products', createProduct);
+router.get('/check-access', checkAdminAccess);
+router.get('/dashboard', getDashboardData);
+router.get('/users', getAllUsers);
+router.delete('/users/:id', deleteUser);
 
 export default router;

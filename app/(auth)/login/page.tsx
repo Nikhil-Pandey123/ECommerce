@@ -80,8 +80,11 @@ const Login = () => {
         setFormData({ email: '', password: '' });
 
         // Check if user is admin and redirect accordingly\
+
+        console.log('Login Response Data:', data);
         console.log('User Role:', data.user.role);
-        console.log('Is Admin:', data.user.isAdmin);
+        console.log('Is Admin Check:', data.user.role === 'admin');
+        console.log('Token stored:', localStorage.getItem('token'));
 
         setTimeout(() => {
           if (data.user.role === 'admin') {

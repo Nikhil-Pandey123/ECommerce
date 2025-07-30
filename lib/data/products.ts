@@ -31,7 +31,7 @@ export const dummyProducts = [
     title: "Airflex Hoodie",
     image: "/Airflex photo/34.png",
     description: "Comfortable and stylish hoodie for workouts and everyday wear.",
-    price: 1799,
+    price: 1999,
     bestSeller: true,
     category: "apparel",
   },
@@ -40,7 +40,7 @@ export const dummyProducts = [
     title: "Airflex Performance Socks",
     image: "/Airflex photo/10.png",
     description: "Cushioned socks with arch support and moisture control.",
-    price: 499,
+    price: 200,
     bestSeller: false,
     category: "accessories",
   },
@@ -49,16 +49,16 @@ export const dummyProducts = [
     title: "Airflex Duffle Bag",
     image: "/Airflex photo/11.png",
     description: "Spacious and durable duffle bag to carry all your gym essentials.",
-    price: 2199,
+    price: 2500,
     bestSeller: false,
     category: "gear",
   },
   {
     id: "p7",
-    title: "Airflex Smart Watch Band",
+    title: "Airflex Crossbody Sling Bag",
     image: "/Airflex photo/12.png",
-    description: "Flexible and breathable smart watch band for a secure fit.",
-    price: 599,
+    description: "A compact and lightweight sling bag designed for everyday use. Perfect for carrying essentials like your phone, wallet, and keys.",
+    price: 1500,
     bestSeller: false,
     category: "accessories",
   },
@@ -71,24 +71,7 @@ export const dummyProducts = [
     bestSeller: true,
     category: "apparel",
   },
-  {
-    id: "p9",
-    title: "Airflex Foam Roller",
-    image: "/Airflex photo/roller.png",
-    description: "Muscle recovery tool to ease soreness and improve flexibility.",
-    price: 1499,
-    bestSeller: false,
-    category: "gear",
-  },
-  {
-    id: "p10",
-    title: "Airflex Water Bottle",
-    image: "/Airflex photo/bottle.png",
-    description: "Insulated water bottle that keeps drinks cool for up to 12 hours.",
-    price: 699,
-    bestSeller: false,
-    category: "accessories",
-  },
+  
   {
     id: "p11",
     title: "Airflex Sports Cap",
@@ -98,13 +81,13 @@ export const dummyProducts = [
     bestSeller: false,
     category: "accessories",
   },
-  {
-    id: "p12",
-    title: "Airflex Gym Gloves",
-    image: "/Airflex photo/gloves.png",
-    description: "Padded gloves for better grip and comfort during lifts.",
-    price: 899,
-    bestSeller: true,
-    category: "gear",
-  },
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ];

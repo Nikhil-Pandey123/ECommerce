@@ -98,7 +98,7 @@ export default function DashboardPage() {
       useWishlistStore.getState().clearWishlist();
 
       toast.success('Logged out successfully');
-      router.push('/');
+      router.push('/login');
     } catch (error) {
       console.error('Logout error:', error);
       toast.error('Failed to log out');

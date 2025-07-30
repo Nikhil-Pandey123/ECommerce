@@ -25,8 +25,14 @@ const ProtectedRoute = ({
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
+      const user = localStorage.getItem('user');
+
+      console.log('ProtectedRoute - Token exists:', !!token);
+      console.log('ProtectedRoute - User data:', user);
+      console.log('ProtectedRoute - Require admin:', requireAdmin);
 
       if (!token) {
+        console.log('No token found, setting unauthenticated');
         setAuthState('unauthenticated');
         return;
       }
@@ -36,6 +42,8 @@ const ProtectedRoute = ({
           ? 'http://localhost:5000/api/admin/check-access'
           : 'http://localhost:5000/api/users/profile';
 
+        console.log('Making request to:', url);
+
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,22 +51,31 @@ const ProtectedRoute = ({
           },
         });
 
+        console.log('Response status:', response.status);
+
         if (response.ok) {
           const data = await response.json();
+          console.log('Response data:', data);
 
           if (requireAdmin && !data.authorized) {
+            console.log('Admin required but not authorized');
             setAuthState('unauthorized');
           } else {
+            console.log('Authentication successful');
             setAuthState('authenticated');
           }
         } else if (response.status === 401) {
-          // Token is invalid or expired
+          console.log('401 - Token invalid/expired');
           localStorage.removeItem('token');
+          localStorage.removeItem('user');
           setAuthState('unauthenticated');
         } else if (response.status === 403) {
-          // Authenticated but not authorized
+          console.log('403 - Authenticated but not authorized');
           setAuthState('unauthorized');
         } else {
+          console.log('Other error status:', response.status);
+          const errorData = await response.text();
+          console.log('Error response:', errorData);
           setAuthState('unauthenticated');
         }
       } catch (error) {
@@ -74,11 +91,13 @@ const ProtectedRoute = ({
     if (authState === 'loading' || hasRedirected) return;
 
     if (authState === 'unauthenticated') {
+      console.log('Redirecting to login...');
       const currentPath = window.location.pathname + window.location.search;
       localStorage.setItem('redirectPath', currentPath);
       setHasRedirected(true);
       router.push('/login');
     } else if (authState === 'unauthorized') {
+      console.log('Redirecting due to unauthorized access...');
       toast.error("You don't have permission to access the admin dashboard");
       setHasRedirected(true);
       router.push('/');
@@ -97,9 +116,6 @@ const ProtectedRoute = ({
 
   // Don't render anything if not authorized or during redirect
   if (authState !== 'authenticated' || hasRedirected) {
-    toast.error(
-      'You must be logged in to view this page. Redirecting to login...'
-    );
     return null;
   }
 
